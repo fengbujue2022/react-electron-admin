@@ -1,4 +1,4 @@
-import React, { Reducer, useReducer } from 'react'
+import React, { Reducer, useEffect, useReducer } from 'react'
 import { Button, TextField, Grid, Paper, MenuItem, makeStyles, Theme } from '@material-ui/core'
 import { BaseEntity, DataModel, OmitId } from '@Ma'
 import { ReporterRepository } from '@/src/repositories'
@@ -34,17 +34,22 @@ function FormWidget(props: { children?: React.ReactNode }) {
 
 export default function Detail() {
   const history = useHistory()
-  const [form, updateForm] = useReducer(formReducer, initialFormState)
   const { id } = useParams<{ id: string }>()
   const isEdit = !!id
+  const [form, updateForm] = useReducer(formReducer, initialFormState)
 
-  useAsync(async () => {
+  const { value, loading } = useAsync(async () => {
     if (isEdit) {
       const reporter = await ReporterRepository.getOneById(id)
-      // Todo：do not update state in callback
-      updateForm(reporter)
+      return { reporter }
     }
   }, [id])
+
+  useEffect(() => {
+    if (loading === false && value) {
+      updateForm(value.reporter)
+    }
+  }, [value, loading])
 
   const handleSaveClick = async () => {
     try {

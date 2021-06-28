@@ -16,11 +16,11 @@ import classNames from 'classnames'
 import { useImmer } from 'use-immer'
 import { ProblemRepository, ReporterRepository } from '@/src//repositories'
 import { toast } from 'react-toastify'
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import useAutoComplete from '@/src//hooks/useAutoComplete'
 import { Autocomplete } from '@material-ui/lab'
 import constants from '@/src/constants/index'
-import { useAsync } from 'react-use'
+import { useAsyncRetry } from 'react-use'
 
 type FormState = {
   problem: OmitId<DataModel.Problem>
@@ -62,19 +62,22 @@ export default function Detail() {
   const [options, , , setKeyword] = useAutoComplete(ReporterRepository, 'phonenumber')
   const [stagedReporter, setStagedReporter] = useState<OmitId<DataModel.Reporter> & Partial<BaseEntity>>()
 
-  const fetchDetail = async () => {
+  const { value, loading, retry } = useAsyncRetry(async () => {
     if (isEdit) {
       const problem = await ProblemRepository.getOneById(id)
       const reporter = await ReporterRepository.getOneById(problem.reporterId)
-      // Todo：do not update state in callback, it may occur after the unmount
+      return { problem, reporter }
+    }
+  }, [id])
+
+  useEffect(() => {
+    if (loading === false && value) {
       updateForm((draft) => {
-        draft.reporter = reporter
-        draft.problem = problem
+        draft.reporter = value.reporter
+        draft.problem = value.problem
       })
     }
-  }
-
-  useAsync(fetchDetail, [id])
+  }, [value, loading, updateForm])
 
   const handleSaveClick = async () => {
     try {
@@ -83,7 +86,7 @@ export default function Detail() {
           reporterId: form.reporter.objectId,
           description: form.problem.description,
         })
-        await fetchDetail()
+        await retry()
         toast.success('edit successful')
       } else {
         let reporterId: string
