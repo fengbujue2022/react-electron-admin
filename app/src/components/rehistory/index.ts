@@ -43,9 +43,9 @@ const createRehistory = <HistoryLocationState = LocationState>(history: History<
   }
 
   const emptyRetry = () => {}
-  const doRouteChange = (route: (isAllowTx: boolean) => Reaction) => {
+  const doRouteChange = (action: Reaction, route: (isAllowTx: boolean) => void) => {
     const isAllowTx = allowTx(history.action, history.location, emptyRetry)
-    const action = route(isAllowTx)
+    route(isAllowTx)
     if (isAllowTx) {
       if (action === 'push') {
         locationChain = locationChain.splice(0, activeChainIndex + 1).concat([history.location])
@@ -53,7 +53,7 @@ const createRehistory = <HistoryLocationState = LocationState>(history: History<
       } else if (action === 'replace') {
         locationChain = locationChain.splice(0, activeChainIndex).concat([history.location])
       } else if (typeof action === 'number') {
-        if (activeChainIndex > 0) {
+        if (activeChainIndex >= 0) {
           activeChainIndex += action
         }
       }
@@ -61,24 +61,21 @@ const createRehistory = <HistoryLocationState = LocationState>(history: History<
     }
   }
   const go = (delta: number) => {
-    doRouteChange(() => {
+    doRouteChange(delta, () => {
       history.go(delta)
-      return delta
     })
   }
 
   return {
     // override
     push(path: Path, state?: HistoryLocationState) {
-      doRouteChange(() => {
+      doRouteChange('push', () => {
         history.push(path, state)
-        return 'push'
       })
     },
     replace(path: Path, state?: HistoryLocationState) {
-      doRouteChange(() => {
+      doRouteChange('replace', () => {
         history.replace(path, state)
-        return 'replace'
       })
     },
     goBack() {
