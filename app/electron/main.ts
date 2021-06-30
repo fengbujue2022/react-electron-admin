@@ -2,9 +2,9 @@ import { app } from 'electron'
 import path from 'path'
 import { BrowserWindow, BrowserWindowConstructorOptions } from 'electron'
 import windowStateKeeper from 'electron-window-state'
-import * as message from '@/electron/core/message'
 import isDev from '@/electron/libs/isDev'
 
+import('@/electron/core/message')
 const { port, host } = process.env
 
 let win: BrowserWindow | null
