@@ -110,4 +110,3 @@ app.on('window-all-closed', () => {
 
 app.on('before-quit', () => (global.is_will_quit = true))
 app.on('activate', onActive)
-message.on('active_main_window', onActive)

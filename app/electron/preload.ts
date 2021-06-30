@@ -1,6 +1,7 @@
 import { contextBridge, ipcRenderer } from 'electron'
 import { EventEmitter } from 'events'
 import * as action from './actions'
+import { ActionData } from './types'
 
 declare global {
   interface Window {
@@ -12,21 +13,21 @@ type Actions = typeof action
 
 export type EventHandler = (...args: any[]) => void
 
-const ee = new EventEmitter()
+const eventEmitter = new EventEmitter()
 
-let x_get_idx = 0
+let x_action_get_idx = 0
 
 const callAction = (action: keyof Actions, ...params: any[]) => {
-  const callback = ['_cb', new Date().getTime(), x_get_idx++].join('_')
+  const callbackId = ['_cb', new Date().getTime(), x_action_get_idx++].join('_')
 
   return new Promise((resolve, reject) => {
     ipcRenderer.send('x_action', {
       action,
       data: params,
-      callback,
-    })
+      callbackId,
+    } as ActionData)
 
-    ipcRenderer.once(callback, (sender, err, d) => {
+    ipcRenderer.once(callbackId, (sender, err, d) => {
       if (err) {
         reject(err)
       } else {
@@ -36,41 +37,23 @@ const callAction = (action: keyof Actions, ...params: any[]) => {
   })
 }
 
-const broadcast = <T>(event: string, ...args: any) => {
-  // 广播消息给所有 render 窗口
-  ipcRenderer.send('x_broadcast', { event, args })
-}
-
 const on = (event: string, handler: EventHandler) => {
-  ee.on(event, handler)
+  eventEmitter.on(event, handler)
   return () => off(event, handler)
 }
 
 const once = (event: string, handler: EventHandler) => {
-  ee.once(event, handler)
+  eventEmitter.once(event, handler)
   return () => off(event, handler)
 }
 
 const off = (event: string, handler: EventHandler) => {
   // console.log(`off [${event}]`)
-  ee.off(event, handler)
+  eventEmitter.off(event, handler)
 }
-
-ipcRenderer.on('y_broadcast', (e, d) => {
-  // 接收其他（包括当前） render 窗口广播的消息
-  ee.emit(d.event, ...d.args)
-})
-
-ipcRenderer.send('x_reg')
-
-// 窗口销毁时 unreg
-window.addEventListener('beforeunload', () => {
-  ipcRenderer.send('x_unreg')
-})
 
 const _agent = {
   call: callAction,
-  broadcast,
   on,
   once,
   off,

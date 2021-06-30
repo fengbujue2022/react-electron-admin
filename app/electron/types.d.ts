@@ -5,7 +5,7 @@ export type Actions = typeof actions
 export interface ActionData {
   action: keyof Actions
   data?: any
-  callback: string
+  callbackId: string
 }
 
 declare global {
