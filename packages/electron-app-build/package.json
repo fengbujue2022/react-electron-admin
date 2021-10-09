@@ -1,0 +1,41 @@
+{
+  "name": "@react-electron-admin/electron-app-build",
+  "version": "0.0.0",
+  "description": "build your electron app",
+  "main": "dist/index.js",
+  "module": "dist/index.js",
+  "license": "MIT",
+  "keywords": [],
+  "engines": {
+    "node": ">=10"
+  },
+  "bin": {
+    "electron-app-build": "./dist/index.js"
+  },
+  "scripts": {
+    "build": "tsc",
+    "prepare": "npm run build"
+  },
+  "files": [
+    "dist"
+  ],
+  "dependencies": {
+    "@types/compression": "^1.7.2",
+    "@types/connect": "^3.4.35",
+    "@types/has": "^1.0.0",
+    "@types/http-proxy": "^1.17.7",
+    "@types/js-yaml": "^4.0.3",
+    "chalk": "^4.1.2",
+    "chokidar": "^3.5.2",
+    "compression": "^1.7.4",
+    "connect": "^3.7.0",
+    "debounce-fn": "^4.0.0",
+    "deepmerge": "^4.2.2",
+    "dependency-tree-81": "^8.1.2",
+    "esbuild": "^0.12.15",
+    "has": "^1.0.3",
+    "http-proxy": "^1.18.1",
+    "js-yaml": "^4.1.0",
+    "meow": "^9.0.0"
+  }
+}

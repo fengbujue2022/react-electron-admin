@@ -14,6 +14,10 @@ The page will reload if you make edits. You will also see any lint errors in the
 
 Builds the app for production to the build folder. It correctly bundles React in production mode and optimizes the build for the best performance.
 
-## sign in
+## Sign in
 
 account : admin , password : admin
+
+## Updated （2021/09/27）
+
+使用 esbuild 构建 （卧槽 好快），并没有改为 lerna - monorepo（可能会改）

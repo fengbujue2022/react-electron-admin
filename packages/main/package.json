@@ -1,0 +1,12 @@
+{
+  "name": "@react-electron-admin/main",
+  "version": "0.0.0",
+  "main": "dist/main.js",
+  "scripts": {
+    "dev": "cross-env NODE_ENV=development electron-app-build dev"
+  },
+  "dependencies": {
+    "@react-electron-admin/electron-app-build": "^0.0.0",
+    "electron-window-state": "^5.0.3"
+  }
+}

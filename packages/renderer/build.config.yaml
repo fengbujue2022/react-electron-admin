@@ -1,0 +1,8 @@
+target: renderer
+type: esbuild
+configPath: esbuild.config.ts
+port: 2233
+host: localhost
+src: src/index.ts
+html: src/index.html
+output: dist
