@@ -32,7 +32,7 @@ const useAutoComplete = <T extends BaseEntity>(
             setOptions(
               data.map((value) => {
                 return {
-                  label: value[fieldKey.toString()].toString(),
+                  label: (value as any)[fieldKey.toString()].toString(),
                   value,
                 };
               })

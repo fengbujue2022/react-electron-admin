@@ -1,12 +1,14 @@
-import { Actions } from '../types'
+import { Actions } from '../types';
+
+const globalThis = window as any;
 
 export const actions: Actions = new Proxy(
   {},
   {
     get(obj, key: keyof Actions) {
-      return (...params: any[]) => window._agent.call(key, ...params)
+      return (...params: any[]) => globalThis._agent.call(key, ...params);
     },
   }
-) as Actions
+) as Actions;
 
-export const agent = window._agent
+export const agent = globalThis._agent;
