@@ -1,19 +1,17 @@
 {
-  "name": "@react-electron-admin/electron-app-build",
+  "name": "@react-electron-admin/esbuild-devserver",
   "version": "0.0.0",
-  "description": "build your electron app",
-  "main": "dist/index.js",
-  "module": "dist/index.js",
+  "main": "dist/devserver.js",
+  "module": "dist/devserver.js",
+  "types": "dist/types/devserver.d.ts",
   "license": "MIT",
   "keywords": [],
   "engines": {
     "node": ">=10"
   },
-  "bin": {
-    "electron-app-build": "./dist/index.js"
-  },
   "scripts": {
     "build": "tsc",
+    "prepublish": "npm run build",
     "prepare": "npm run build"
   },
   "files": [
@@ -32,7 +30,6 @@
     "debounce-fn": "^4.0.0",
     "deepmerge": "^4.2.2",
     "dependency-tree-81": "^8.1.2",
-    "esbuild": "^0.12.15",
     "has": "^1.0.3",
     "http-proxy": "^1.18.1",
     "js-yaml": "^4.1.0",
