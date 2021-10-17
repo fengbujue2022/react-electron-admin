@@ -7,10 +7,15 @@
     "declaration": true,
     "declarationDir": "dist/types"
   },
+  "references": [
+    {
+      "path": "../esbuild-devserver"
+    }
+  ],
   "include": [
-    "**/*",
+    "**/*"
   ],
   "exclude": [
-    "node_modules",
+    "node_modules"
   ]
 }

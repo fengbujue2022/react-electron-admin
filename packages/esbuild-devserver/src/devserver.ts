@@ -4,10 +4,12 @@ import compression from 'compression';
 import { promises as fs } from 'fs';
 import { createServer } from 'http';
 import chokidar from 'chokidar';
+import path from 'path';
 
 export interface DevServerOptions {
   port: number;
-  htmlPath: string;
+  htmlEntryPath: string;
+  htmlOutputDir: string;
   watchDir: string;
   onload: () => void | Promise<void>;
 }
@@ -22,9 +24,15 @@ export const createDevServer = (options: DevServerOptions) => {
 };
 
 const bootstrapDevServer = async (options: DevServerOptions) => {
+  const _copyHtml = async function (entryPath: string, outputDir: string) {
+    await fs.copyFile(entryPath, path.join(outputDir, path.basename(entryPath)));
+  };
+
   // TODO : feature: support hot reload
-  const { port, htmlPath, watchDir, onload } = options;
-  const html = (await fs.readFile(htmlPath)).toString();
+  const { port, htmlEntryPath, htmlOutputDir, watchDir, onload } = options;
+  const html = (await fs.readFile(htmlEntryPath)).toString();
+
+  await _copyHtml(htmlEntryPath, htmlOutputDir);
 
   var listener = connect();
   listener.use(compression() as any);

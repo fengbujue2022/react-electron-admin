@@ -12,14 +12,6 @@ import { getDeps } from '../utils/deps';
 import { debounce } from '../utils/debounce';
 
 async function startRenderer() {
-  const _copyHtml = async function (output: string, html: string) {
-    if (html) {
-      const outPath = path.resolve(process.cwd(), output);
-      const htmlPath = path.resolve(process.cwd(), html);
-      await fs.copyFile(htmlPath, path.join(outPath, path.basename(html)));
-    }
-  };
-
   const builder: BuildIncremental = await esbuild.build({
     ...esbuildRenderConfig,
     incremental: true,
@@ -36,7 +28,6 @@ async function startRenderer() {
       }),
     ],
   });
-  await _copyHtml(commonConfig.renderer.outputDir, commonConfig.renderer.html);
 }
 
 async function startMain() {

@@ -3,6 +3,7 @@
   "printWidth": 112,
   "proseWrap": "never",
   "eslintIntegration": true,
+  "semicolons": true,
   "singleQuote": true,
   "semi": false,
   "trailingComma": "es5",

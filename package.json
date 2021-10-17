@@ -7,7 +7,6 @@
     ]
   },
   "scripts": {
-    "dev": "lerna run dev --parallel",
     "typecheck-main": "tsc --noEmit -p packages/main/tsconfig.json",
     "typecheck-renderer": "tsc --noEmit -p packages/renderer/tsconfig.json",
     "typecheck": "npm run typecheck-main && npm run typecheck-renderer"
