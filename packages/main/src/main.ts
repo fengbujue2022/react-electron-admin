@@ -3,9 +3,10 @@ import path from 'path';
 import { BrowserWindow, BrowserWindowConstructorOptions } from 'electron';
 import windowStateKeeper from 'electron-window-state';
 import isDev from '@/libs/isDev';
+import { commonConfig } from '@react-electron-admin/scripts/configs';
 
 import('@/core/message');
-const { port, host } = { port: 2233, host: 'localhost' };
+const { port, host, html } = commonConfig.renderer;
 
 let win: BrowserWindow | null;
 
@@ -29,11 +30,12 @@ function getWindowUrl(): string {
     return `http://${host}:${port}#`;
   } else {
     //TODO
-    return `file://${path.join(__dirname, '../renderer/index.html')}#`;
+    return `file://${html}#`;
   }
 }
 
 async function createWindow() {
+  console.log(getWindowUrl());
   let main_window_state = windowStateKeeper({
     defaultWidth: 1050 + (isDev() ? 300 : 0),
     defaultHeight: 700,
@@ -63,6 +65,7 @@ async function createWindow() {
   global.main_win = win;
 
   const url = getWindowUrl();
+  console.log(url);
   win.loadURL(url).catch((e) => console.error(e));
 
   if (isDev()) {

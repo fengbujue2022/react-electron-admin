@@ -6,6 +6,7 @@
     "dev": "cross-env NODE_ENV=development electron-app-build dev"
   },
   "dependencies": {
+    "@react-electron-admin/scripts": "^0.0.0",
     "electron-window-state": "^5.0.3"
   }
 }

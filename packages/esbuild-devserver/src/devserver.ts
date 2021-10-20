@@ -25,7 +25,10 @@ export const createDevServer = (options: DevServerOptions) => {
 
 const bootstrapDevServer = async (options: DevServerOptions) => {
   const _copyHtml = async function (entryPath: string, outputDir: string) {
-    await fs.copyFile(entryPath, path.join(outputDir, path.basename(entryPath)));
+    await fs.copyFile(
+      entryPath,
+      path.join(outputDir, path.basename(entryPath))
+    );
   };
 
   // TODO : feature: support hot reload

@@ -2,9 +2,9 @@
   "name": "@react-electron-admin/scripts",
   "version": "0.0.0",
   "description": "some scripts",
-  "main": "index.js",
+  "main": "../main/dist/main.js",
   "scripts": {
-    "dev": "ts-node index.ts"
+    "dev": "ts-node ./tasks/dev.ts"
   },
   "dependencies": {
     "@react-electron-admin/esbuild-devserver": "0.0.0",

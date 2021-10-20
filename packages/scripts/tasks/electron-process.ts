@@ -7,7 +7,6 @@ import { debounce } from '../utils/debounce';
 export default class ElectronProcess {
   public process: ChildProcessWithoutNullStreams | undefined;
 
-  private TM: number = Date.now();
   private restarting = false;
   private isRestart = false;
 

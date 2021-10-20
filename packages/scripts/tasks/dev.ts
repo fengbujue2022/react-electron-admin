@@ -1,7 +1,6 @@
 import { createDevServer } from '@react-electron-admin/esbuild-devserver';
 import path from 'path';
-import { promises as fs } from 'fs';
-import { BuildIncremental, default as esbuild } from 'esbuild';
+import { BuildIncremental, build, default as esbuild } from 'esbuild';
 import chokidar from 'chokidar';
 import {
   esbuildRenderConfig,
@@ -10,16 +9,19 @@ import {
 } from '../configs';
 import { getDeps } from '../utils/deps';
 import { debounce } from '../utils/debounce';
+import ElectronProcess from './electron-process';
 
 async function startRenderer() {
-  const builder: BuildIncremental = await esbuild.build({
+  const { port, html, entryDir } = commonConfig.renderer;
+
+  const builder: BuildIncremental = await build({
     ...esbuildRenderConfig,
     incremental: true,
     plugins: [
       createDevServer({
-        port: 2233,
-        watchDir: '',
-        htmlPath: '',
+        port,
+        watchDir: entryDir,
+        htmlPath: html,
         onload: async () => {
           if (builder) {
             await builder.rebuild();
@@ -30,21 +32,29 @@ async function startRenderer() {
   });
 }
 
+const electronProcess = new ElectronProcess();
+
 async function startMain() {
+  const { entryDir } = commonConfig.main;
+
+  const builder: BuildIncremental = await build({
+    ...esbuildMainConfig,
+    incremental: true,
+  });
+
+  electronProcess.start();
+
   const sources = path.join(
-    path.resolve(path.dirname(commonConfig.main.entryDir)),
+    path.resolve(path.dirname(entryDir)),
     '**',
     '*.{js,ts,tsx}'
   );
-  let watcher = chokidar.watch([
-    sources,
-    ...getDeps(path.resolve(commonConfig.main.entryDir)),
-  ]);
+  let watcher = chokidar.watch([sources, ...getDeps(path.resolve(entryDir))]);
 
   watcher.on('ready', () => {
     watcher.on('all', () => {
       debounce(() => {
-        watcher.close();
+        builder.rebuild();
       }, 200);
     });
   });

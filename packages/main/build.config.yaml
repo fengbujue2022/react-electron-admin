@@ -1,5 +1,0 @@
-target: main
-type: esbuild
-configPath: esbuild.config.ts
-src: src/main.ts
-output: dist
