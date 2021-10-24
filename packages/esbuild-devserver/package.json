@@ -1,9 +1,9 @@
 {
   "name": "@react-electron-admin/esbuild-devserver",
   "version": "0.0.0",
-  "main": "dist/devserver.js",
-  "module": "dist/devserver.js",
-  "types": "dist/types/devserver.d.ts",
+  "main": "dist/src/devserver.js",
+  "module": "dist/src/devserver.js",
+  "types": "dist/types/src/devserver.d.ts",
   "license": "MIT",
   "keywords": [],
   "engines": {

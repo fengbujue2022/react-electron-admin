@@ -26,7 +26,7 @@ if (!appLock) {
 }
 
 function getWindowUrl(): string {
-  if (isDev()) {
+  if (true) { //isDev()
     return `http://${host}:${port}#`;
   } else {
     //TODO
@@ -51,7 +51,7 @@ async function createWindow() {
     webPreferences: {
       contextIsolation: true,
       spellcheck: true,
-      preload: path.join(__dirname, 'preload.js'),
+      //preload: path.join(__dirname, 'preload.js'),
     },
     titleBarStyle: 'hidden',
     frame: false,

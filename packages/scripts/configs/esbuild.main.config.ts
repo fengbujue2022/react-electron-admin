@@ -10,8 +10,5 @@ export default {
   ],
   outdir: commonConfig.main.outputDir,
   bundle: true,
-  target: 'node14.16.0', // electron version target
-  loader: {
-    '.ts': 'ts',
-  },
+  target: 'node16.5.0', // electron version target
 } as BuildOptions;

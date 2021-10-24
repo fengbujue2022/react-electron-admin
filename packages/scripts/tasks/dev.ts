@@ -1,6 +1,6 @@
 import { createDevServer } from '@react-electron-admin/esbuild-devserver';
 import path from 'path';
-import { BuildIncremental, build, default as esbuild } from 'esbuild';
+import { BuildIncremental, build } from 'esbuild';
 import chokidar from 'chokidar';
 import {
   esbuildRenderConfig,
@@ -12,7 +12,7 @@ import { debounce } from '../utils/debounce';
 import ElectronProcess from './electron-process';
 
 async function startRenderer() {
-  const { port, html, entryDir } = commonConfig.renderer;
+  const { port, html, outputDir, entryDir } = commonConfig.renderer;
 
   const builder: BuildIncremental = await build({
     ...esbuildRenderConfig,
@@ -21,7 +21,8 @@ async function startRenderer() {
       createDevServer({
         port,
         watchDir: entryDir,
-        htmlPath: html,
+        htmlEntryPath: html,
+        htmlOutputDir: outputDir,
         onload: async () => {
           if (builder) {
             await builder.rebuild();

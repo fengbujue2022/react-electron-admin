@@ -10,22 +10,16 @@
         "*"
       ]
     },
-    "lib": [
-      "esnext",
-      "dom",
-      "dom.iterable",
-      "scripthost",
-      "es5"
-    ]
+    "module": "commonjs",
+    "target": "es5",
+    "declaration": true,
+    "declarationDir": "dist/types"
   },
   "include": [
     "src/**/*.ts",
   ],
   "exclude": [
     "node_modules",
-    "build",
     "dist",
-    "release",
-    "assets"
   ]
 }
