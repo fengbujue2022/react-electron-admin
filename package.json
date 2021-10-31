@@ -20,6 +20,8 @@
     "*.{js,ts,tsx}": "eslint --cache --fix"
   },
   "devDependencies": {
+    "@bundless/cli": "0.6.0",
+    "@bundless/plugin-react-refresh": "2.1.0",
     "@types/react": "^17.0.3",
     "@types/electron-devtools-installer": "2.2.0",
     "@typescript-eslint/eslint-plugin": "4.33.0",

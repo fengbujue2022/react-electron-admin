@@ -1,4 +1,4 @@
-import { Plugin, PluginBuild } from 'esbuild';
+import { Plugin, PluginBuild, serve } from 'esbuild';
 import connect from 'connect';
 import compression from 'compression';
 import { promises as fs } from 'fs';
