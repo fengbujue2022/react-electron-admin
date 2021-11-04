@@ -1,8 +1,9 @@
-const { ReactRefreshPlugin } = require('@bundless/plugin-react-refresh')
+const { ReactRefreshPlugin } = require('@bundless/plugin-react-refresh');
 
 /**
  * @type { import('@bundless/cli').Config }
  */
 module.exports = {
-    plugins: [ReactRefreshPlugin()],
-}
+  entries: ['src/index.html'],
+  plugins: [ReactRefreshPlugin()],
+};

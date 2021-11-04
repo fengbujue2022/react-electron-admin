@@ -10,9 +10,17 @@ import {
 import { getDeps } from '../utils/deps';
 import { debounce } from '../utils/debounce';
 import ElectronProcess from './electron-process';
+import { promises as fs } from 'fs';
+import { delay } from '../utils/promise';
 
 async function startRenderer() {
   const { port, html, outputDir, entryDir } = commonConfig.renderer;
+  const _copyHtml = async function (entryPath: string, outputDir: string) {
+    await fs.copyFile(
+      entryPath,
+      path.join(outputDir, path.basename(entryPath))
+    );
+  };
 
   const builder: BuildIncremental = await build({
     ...esbuildRenderConfig,
@@ -21,8 +29,6 @@ async function startRenderer() {
       createDevServer({
         port,
         watchDir: entryDir,
-        htmlEntryPath: html,
-        htmlOutputDir: outputDir,
         onload: async () => {
           if (builder) {
             await builder.rebuild();
@@ -31,6 +37,7 @@ async function startRenderer() {
       }),
     ],
   });
+  _copyHtml(html, outputDir);
 }
 
 const electronProcess = new ElectronProcess();
@@ -38,6 +45,7 @@ const electronProcess = new ElectronProcess();
 async function startMain() {
   const { entryDir } = commonConfig.main;
 
+  await delay(500);
   const builder: BuildIncremental = await build({
     ...esbuildMainConfig,
     incremental: true,

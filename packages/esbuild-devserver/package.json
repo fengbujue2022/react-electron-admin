@@ -1,9 +1,9 @@
 {
   "name": "@react-electron-admin/esbuild-devserver",
   "version": "0.0.0",
-  "main": "dist/src/devserver.js",
-  "module": "dist/src/devserver.js",
-  "types": "dist/types/src/devserver.d.ts",
+  "main": "dist/src/index.js",
+  "module": "dist/src/index.js",
+  "types": "dist/types/src/index.d.ts",
   "license": "MIT",
   "keywords": [],
   "engines": {
@@ -17,21 +17,20 @@
     "dist"
   ],
   "dependencies": {
-    "@types/compression": "^1.7.2",
-    "@types/connect": "^3.4.35",
     "@types/has": "^1.0.0",
-    "@types/http-proxy": "^1.17.7",
     "@types/js-yaml": "^4.0.3",
+    "@types/koa": "^2.13.4",
+    "@types/koa-send": "^4.1.2",
     "chalk": "^4.1.2",
     "chokidar": "^3.5.2",
-    "compression": "^1.7.4",
-    "connect": "^3.7.0",
     "debounce-fn": "^4.0.0",
     "deepmerge": "^4.2.2",
     "dependency-tree-81": "^8.1.2",
     "has": "^1.0.3",
-    "http-proxy": "^1.18.1",
     "js-yaml": "^4.1.0",
-    "meow": "^9.0.0"
+    "koa": "^2.13.4",
+    "koa-send": "5.0.1",
+    "meow": "^9.0.0",
+    "ora": "^5.2.0"
   }
 }

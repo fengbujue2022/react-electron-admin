@@ -11,9 +11,11 @@
     "sourceMap": true,
     "moduleResolution": "Node",
     "esModuleInterop": true,
+    "noImplicitAny": false,
     "skipLibCheck": true,
     "strict": true,
     "isolatedModules": true,
+    "useUnknownInCatchVariables": false,
     "types": [
       "node"
     ],

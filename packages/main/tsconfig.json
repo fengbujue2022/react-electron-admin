@@ -1,20 +1,13 @@
 {
   "extends": "../../tsconfig.json",
   "compilerOptions": {
-    "baseUrl": ".",
-    "paths": {
-      "@/*": [
-        "src/*"
-      ],
-      "@root/*": [
-        "*"
-      ]
-    },
-    "module": "commonjs",
-    "target": "es5",
+    "target": "es2015",
+    "module": "esnext",
     "declaration": true,
     "declarationDir": "dist/types",
-    "lib": ["dom"]
+    "lib": [
+      "dom"
+    ]
   },
   "include": [
     "src/**/*.ts",
