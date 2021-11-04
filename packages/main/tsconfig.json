@@ -1,6 +1,15 @@
 {
   "extends": "../../tsconfig.json",
   "compilerOptions": {
+    "baseUrl": ".",
+    "paths": {
+      "@/*": [
+        "src/*"
+      ],
+      "@root/*": [
+        "*"
+      ]
+    },
     "target": "es2015",
     "module": "esnext",
     "declaration": true,
