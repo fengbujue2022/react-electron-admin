@@ -6,8 +6,6 @@
       ]
     },
     "composite": true,
-    "module": "esnext",
-    "target": "esnext",
     "sourceMap": true,
     "moduleResolution": "Node",
     "esModuleInterop": true,

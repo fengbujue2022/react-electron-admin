@@ -20,8 +20,8 @@ Builds the app for production to the build folder. It correctly bundles React in
 
 account : admin , password : admin
 
-## Updated （2021/10/09）
+## Updated （2021/11/08）
 
-1.重构 scripts 为 `packages/electron-app-build` ,目前支持的 builder 有 `esbuild` （esbuild 永远滴神，太快了）
+1.拆分为 monorepo 方便管理
 
-2.项目结构改为 monorepo，引入了 lerna & yarn workspace 用于 packages 管理
+2.加入 esbuild-devserver 作为开发服务器(不太喜欢 vite,umijs 之类的)

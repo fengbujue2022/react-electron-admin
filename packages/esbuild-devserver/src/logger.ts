@@ -1,7 +1,7 @@
 import chalk from 'chalk';
 import ora, { Ora } from 'ora';
 
-const defaultPrefix = '[bundless-w] ';
+const defaultPrefix = '[esbuild-devserver] ';
 
 const DEBUG = process.env.DEBUG_BUNDLESS;
 export class Logger {

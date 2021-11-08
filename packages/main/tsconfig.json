@@ -10,16 +10,19 @@
         "*"
       ]
     },
-    "target": "es2015",
-    "module": "esnext",
+    "target": "ESNext",
+    "module": "CommonJS",
     "declaration": true,
     "declarationDir": "dist/types",
     "lib": [
-      "dom"
+      "esnext",
+      "es6"
     ]
   },
   "include": [
     "src/**/*.ts",
+    "src/main.js",
+    "src/main.js",
   ],
   "exclude": [
     "node_modules",

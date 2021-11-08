@@ -4,7 +4,7 @@
   "description": "some scripts",
   "main": "../main/dist/main.js",
   "scripts": {
-    "dev": "ts-node ./tasks/dev.ts"
+    "dev": "cross-env NODE_ENV=development ts-node ./tasks/dev.ts"
   },
   "dependencies": {
     "@react-electron-admin/esbuild-devserver": "0.0.0",

@@ -14,7 +14,7 @@ import { promises as fs } from 'fs';
 import { delay } from '../utils/promise';
 
 async function startRenderer() {
-  const { port, html, outputDir, entryDir } = commonConfig.renderer;
+  const { port, html, outputDir, srcDir } = commonConfig.renderer;
   const _copyHtml = async function (entryPath: string, outputDir: string) {
     await fs.copyFile(
       entryPath,
@@ -28,7 +28,7 @@ async function startRenderer() {
     plugins: [
       createDevServer({
         port,
-        watchDir: entryDir,
+        watchDir: srcDir,
         onload: async () => {
           if (builder) {
             await builder.rebuild();
@@ -43,7 +43,7 @@ async function startRenderer() {
 const electronProcess = new ElectronProcess();
 
 async function startMain() {
-  const { entryDir } = commonConfig.main;
+  const { srcDir } = commonConfig.main;
 
   await delay(500);
   const builder: BuildIncremental = await build({
@@ -54,11 +54,11 @@ async function startMain() {
   electronProcess.start();
 
   const sources = path.join(
-    path.resolve(path.dirname(entryDir)),
+    path.resolve(path.dirname(srcDir)),
     '**',
     '*.{js,ts,tsx}'
   );
-  let watcher = chokidar.watch([sources, ...getDeps(path.resolve(entryDir))]);
+  let watcher = chokidar.watch([sources, ...getDeps(path.resolve(srcDir))]);
 
   watcher.on('ready', () => {
     watcher.on('all', () => {

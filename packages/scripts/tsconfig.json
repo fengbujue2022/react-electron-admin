@@ -3,9 +3,13 @@
   "compilerOptions": {
     "outDir": "./dist",
     "module": "commonjs",
-    "target": "es5",
+    "target": "es6",
     "declaration": true,
-    "declarationDir": "dist/types"
+    "declarationDir": "dist/types",
+    "lib": [
+      "esnext",
+      "es6"
+    ]
   },
   "references": [
     {

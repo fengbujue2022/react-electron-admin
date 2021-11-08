@@ -13,13 +13,15 @@ const rendererDir = path.resolve(packagesDir, 'renderer');
 
 export const commonConfig = {
   main: {
-    entryDir: path.resolve(mainDir, 'src'),
+    dir: mainDir,
+    srcDir: path.resolve(mainDir, 'src'),
     outputDir: path.resolve(mainDir, 'dist'),
   },
   renderer: {
     host: 'localhost',
     port: 2233,
-    entryDir: path.resolve(rendererDir, 'src'),
+    dir: rendererDir,
+    srcDir: path.resolve(rendererDir, 'src'),
     outputDir: path.resolve(rendererDir, 'dist'),
     html: path.resolve(rendererDir, 'src/index.html'),
   },
