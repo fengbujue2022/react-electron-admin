@@ -16,7 +16,8 @@
     "declarationDir": "dist/types",
     "lib": [
       "esnext",
-      "es6"
+      "es6",
+      "DOM"
     ]
   },
   "include": [
