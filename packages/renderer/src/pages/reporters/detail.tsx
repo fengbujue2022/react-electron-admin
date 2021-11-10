@@ -1,13 +1,6 @@
 import React, { Reducer, useEffect, useReducer } from 'react';
-import {
-  Button,
-  TextField,
-  Grid,
-  Paper,
-  MenuItem,
-  makeStyles,
-  Theme,
-} from '@material-ui/core';
+import { Button, TextField, Grid, Paper, MenuItem } from '@mui/material';
+import { makeStyles } from '@mui/styles';
 import { BaseEntity, DataModel, OmitId } from '@Ma';
 import { ReporterRepository } from '@/repositories';
 import { toast } from 'react-toastify';
@@ -15,6 +8,7 @@ import { useHistory, useParams } from 'react-router-dom';
 import constants from '@/constants/index';
 import classNames from 'classnames';
 import { useAsync } from 'react-use';
+import { Theme } from '@/themes';
 
 type FormState = OmitId<DataModel.Reporter> & Partial<BaseEntity>;
 

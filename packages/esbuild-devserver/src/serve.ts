@@ -25,7 +25,7 @@ export const createDevServer = (options: DevServerOptions) => {
 
       await promisify(server.listen.bind(server) as any)(port);
 
-      logger.log(
+      logger.info(
         `Listening on ${chalk.cyan.underline(`http://localhost:${port}`)}`
       );
 

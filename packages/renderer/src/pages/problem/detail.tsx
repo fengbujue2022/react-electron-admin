@@ -4,12 +4,11 @@ import {
   Grid,
   Paper,
   MenuItem,
-  makeStyles,
-  Theme,
   Typography,
   Tabs,
   Tab,
-} from '@material-ui/core';
+} from '@mui/material';
+import { makeStyles } from '@mui/styles';
 import { BaseEntity, DataModel, OmitId } from '@Ma';
 import { useHistory, useParams } from 'react-router-dom';
 import classNames from 'classnames';
@@ -18,9 +17,10 @@ import { ProblemRepository, ReporterRepository } from '@//repositories';
 import { toast } from 'react-toastify';
 import React, { useEffect, useState } from 'react';
 import useAutoComplete from '@//hooks/useAutoComplete';
-import { Autocomplete } from '@material-ui/lab';
+import { Autocomplete } from '@mui/lab';
 import constants from '@/constants/index';
 import { useAsyncRetry } from 'react-use';
+import { Theme } from '@/themes';
 
 type FormState = {
   problem: OmitId<DataModel.Problem>;

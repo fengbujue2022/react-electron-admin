@@ -1,9 +1,9 @@
 import path from 'path';
 
-const popToParentDir = (dir: string, deep: number) => {
-  deep = deep < 0 ? 0 : deep;
+const popToParentDir = (dir: string, depth: number) => {
+  depth = depth < 0 ? 0 : depth;
   const dirArr = dir.split(path.sep);
-  return dirArr.slice(0, dirArr.length - deep).join(path.sep);
+  return dirArr.slice(0, dirArr.length - depth).join(path.sep);
 };
 
 const packagesDir = popToParentDir(process.cwd(), 1);

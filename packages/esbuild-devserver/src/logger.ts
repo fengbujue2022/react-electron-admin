@@ -1,43 +1,57 @@
 import chalk from 'chalk';
 import ora, { Ora } from 'ora';
 
-const defaultPrefix = '[esbuild-devserver] ';
+const config = {
+  INFO: { color: 'bgCyan' },
+  DEBUG: { color: 'bgGray' },
+  WARN: { color: 'bgYellow' },
+  SUCCESS: { color: 'bgGreen' },
+  ERROR: { color: 'bgRed' },
+};
 
-const DEBUG = process.env.DEBUG_BUNDLESS;
+export type LogTypes = keyof typeof config;
+
 export class Logger {
-  prefix: string = '';
-  silent: boolean;
-  constructor({ prefix = defaultPrefix, silent = false } = {}) {
-    this.prefix = prefix;
-    this.silent = silent;
-  }
-
-  private print(x) {
-    if (this.silent) {
-      return;
-    }
-    if (this.spinner) {
-      this.spinner.info(x);
-    } else {
-      process.stderr.write(chalk.dim(this.prefix) + x + '\n');
-    }
-  }
-  log(...x) {
-    this.print(x.join(' '));
-  }
-  warn(...x) {
-    this.print(chalk.yellow(x.join(' ')));
-  }
-  error(...x) {
-    this.print(chalk.red(x.join(' ')));
-  }
-
   private spinner?: Ora;
 
-  spinStart(text: string) {
-    if (this.silent) {
-      return;
+  info(message: string) {
+    this.log('INFO', message);
+  }
+
+  debug(message: string) {
+    this.log('DEBUG', message);
+  }
+
+  warn(message: string) {
+    this.log('WARN', chalk.yellow(message));
+  }
+
+  error(message: string | Error, showDetail = false) {
+    let messageH: string;
+    if (message instanceof Error) {
+      messageH = `${chalk.bold(message.name)}: ${message.message}`;
+      if (showDetail) messageH = `Detail: ${messageH}\n${message.stack}`;
+    } else {
+      messageH = message;
     }
+    this.log('ERROR', chalk.red(messageH));
+  }
+
+  success(message: string) {
+    this.log('SUCCESS', chalk.green(message));
+  }
+
+  log(type: LogTypes, message: string | Error) {
+    const conf = config[type];
+    const str = `[${this.getDateStr()}] ${(chalk.white as any)[conf.color].bold(
+      this.center(type)
+    )} ${message}`;
+
+    console.log(str);
+    return str;
+  }
+
+  spinStart(text: string) {
     this.spinner = ora(text + '\n\n').start();
   }
   spinSucceed(text: string) {
@@ -53,15 +67,41 @@ export class Logger {
     this.spinner = undefined;
   }
 
-  debug = DEBUG
-    ? (...x) => {
-        if (this.spinner) {
-          this.spinner.info(x.join(' ') + '\n');
-        } else {
-          process.stderr.write(chalk.dim(this.prefix + x.join(' ') + '\n'));
-        }
-      }
-    : () => {};
+  protected center(str: string, width = 9) {
+    const lack = width - str.length;
+
+    if (lack <= 0) return str;
+
+    const offsetLeft = parseInt(String(lack / 2));
+    const offsetRight = lack - offsetLeft;
+
+    return `${this.getSpaceStr(offsetLeft)}${str}${this.getSpaceStr(
+      offsetRight
+    )}`;
+  }
+
+  protected getSpaceStr(count: number) {
+    let str = '';
+    for (let i = 0; i < count; i++) {
+      str += ' ';
+    }
+    return str;
+  }
+
+  protected getDateStr() {
+    const date = new Date();
+
+    const obj = {
+      H: date.getHours().toString().padStart(2, '0'),
+      I: date.getMinutes().toString().padStart(2, '0'),
+      S: date.getSeconds().toString().padStart(2, '0'),
+      MS: date.getMilliseconds().toString().padStart(3, '0'),
+    };
+
+    return `${chalk.hex('#f78c6c')(`${obj.H}:${obj.I}:${obj.S}`)}.${chalk.hex(
+      '#b2ccd6'
+    )(obj.MS)}`;
+  }
 }
 
 export const logger = new Logger();

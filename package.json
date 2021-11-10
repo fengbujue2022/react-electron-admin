@@ -7,7 +7,7 @@
     ]
   },
   "scripts": {
-    "dev": "yarn workspace @react-electron-admin/scripts dev",
+    "dev": "yarn workspace @react-electron-admin/esbuild-devserver build && yarn workspace @react-electron-admin/scripts dev",
     "typecheck-main": "tsc --noEmit -p packages/main/tsconfig.json",
     "typecheck-renderer": "tsc --noEmit -p packages/renderer/tsconfig.json",
     "typecheck": "npm run typecheck-main && npm run typecheck-renderer"
@@ -27,7 +27,6 @@
     "@typescript-eslint/parser": "^4.20.0",
     "cross-env": "^7.0.3",
     "ts-node": "^10.2.1",
-    "lerna": "^4.0.0",
     "typescript": "4.4.2",
     "react": "^17.0.2",
     "electron": "^15.0.0",
@@ -44,7 +43,8 @@
     "simple-git-hooks": "2.6.1",
     "eslint": "7.32.0",
     "lint-staged": "11.2.0",
-    "prettier": "^2.2.1"
+    "prettier": "^2.2.1",
+    "yarn": "^1.22.17"
   },
   "prettier": {
     "singleQuote": true

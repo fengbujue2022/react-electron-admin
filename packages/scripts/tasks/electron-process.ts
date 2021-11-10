@@ -1,8 +1,7 @@
 import { ChildProcessWithoutNullStreams, spawn } from 'child_process';
-import { exConsole } from '../utils';
 import electron from 'electron';
-import chalk from 'chalk';
 import { debounce } from '../utils/debounce';
+import { logger } from '@react-electron-admin/esbuild-devserver';
 
 export default class ElectronProcess {
   public process: ChildProcessWithoutNullStreams | undefined;
@@ -12,16 +11,16 @@ export default class ElectronProcess {
 
   start(): void {
     if (this.isRestart) {
-      exConsole.info('Electron main process is restarting...');
+      logger.error('Electron main process is restarting...');
       if (this.process && this.process.pid) {
         try {
           process.kill(this.process.pid);
           this.process = undefined;
         } catch (error: any) {
-          exConsole.warn(error.toString());
+          logger.warn(error.toString());
         }
       } else {
-        exConsole.warn('Failed to restart: Main process does not exist.');
+        logger.warn('Failed to restart: Main process does not exist.');
       }
     }
 
@@ -42,19 +41,20 @@ export default class ElectronProcess {
 
     this.restarting = false;
     if (this.process) {
-      exConsole.success(
+      logger.success(
         `Electron main process has ${this.isRestart ? 'restarted' : 'started'}.`
       );
 
       this.process.stdout.on('data', (data) => {
         let message: string = data.toString();
 
-        if (message.length < 10 && (!message || !message.replace(/\s/g, '')))
-          message = chalk.gray('null');
-        exConsole.info(message);
+        if (message.length < 10 && (!message || !message.replace(/\s/g, ''))) {
+        } else {
+          logger.debug(message);
+        }
       });
       this.process.stderr.on('data', (data) => {
-        exConsole.error(data);
+        logger.error(data);
       });
       this.process.on('close', () => {
         if (!this.restarting) {
@@ -63,7 +63,7 @@ export default class ElectronProcess {
         }
       });
     } else {
-      return exConsole.error('Electron start error!');
+      return logger.error('Electron start error!');
     }
   }
 }

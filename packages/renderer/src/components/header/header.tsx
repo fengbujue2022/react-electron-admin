@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Theme, makeStyles } from '@material-ui/core/styles';
+import { makeStyles } from '@mui/styles';
 import {
   AppBar,
   Toolbar,
@@ -8,7 +8,7 @@ import {
   Menu,
   MenuItem,
   Grid,
-} from '@material-ui/core';
+} from '@mui/material';
 import {
   Person as AccountIcon,
   AllInclusive as AllInclusiveIcon,
@@ -16,12 +16,13 @@ import {
   ChevronLeft as ChevronLeftIcon,
   ChevronRight as ChevronRightIcon,
   Minimize as MinimizeIcon,
-} from '@material-ui/icons';
+} from '@mui/icons-material';
 import { useAuthenticationAction, useUserState } from '@/context/UserContext';
 import constants from '@/constants';
 import { actions } from '@react-electron-admin/main/src/core/agent';
 import { useHistory } from 'react-router';
 import { Rehistory } from '../rehistory';
+import { Theme } from '@/themes';
 
 export default function Header() {
   const classes = useStyles();
@@ -43,7 +44,7 @@ export default function Header() {
   };
 
   return (
-    <AppBar variant="outlined" position="fixed" className={classes.appBar}>
+    <AppBar elevation={1} position="fixed" className={classes.appBar}>
       <Toolbar variant="dense">
         <AllInclusiveIcon className={classes.logoIcon} />
         <Typography variant="h6">Admin</Typography>
@@ -129,61 +130,64 @@ export default function Header() {
   );
 }
 
-const useStyles = makeStyles((theme: Theme) => ({
-  appBar: {
-    zIndex: theme.zIndex.drawer + 1,
-    '-webkit-app-region': 'drag',
-  },
-  grow: {
-    flexGrow: 1,
-  },
-  headerMenu: {
-    marginTop: theme.spacing(7),
-  },
-  headerMenuList: {
-    display: 'flex',
-    flexDirection: 'column',
-  },
-  navigateBox: {
-    marginLeft: theme.spacing(12),
-  },
-  headerMenuNavigateButton: {
-    '-webkit-app-region': 'no-drag',
-    padding: theme.spacing(0.5),
-  },
-  headerMenuButton: {
-    '-webkit-app-region': 'no-drag',
-    padding: theme.spacing(0.5),
-  },
-  headerMenuButtonSandwich: {
-    marginLeft: 9,
-    [theme.breakpoints.down('sm')]: {
-      marginLeft: 0,
+const useStyles = makeStyles<Theme>((theme) => {
+  console.log(theme.zIndex.drawer);
+  return {
+    appBar: {
+      zIndex: `${theme.zIndex.drawer + 1} !important` as unknown as number,
+      '-webkit-app-region': 'drag',
     },
-    padding: theme.spacing(0.5),
-  },
-  headerMenuButtonCollapse: {
-    marginRight: theme.spacing(2),
-  },
-  headerIcon: {
-    fontSize: 28,
-    color: 'rgba(255, 255, 255, 0.35)',
-    '&:hover, &:focus': {
+    grow: {
+      flexGrow: 1,
+    },
+    headerMenu: {
+      marginTop: theme.spacing(7),
+    },
+    headerMenuList: {
+      display: 'flex',
+      flexDirection: 'column',
+    },
+    navigateBox: {
+      marginLeft: theme.spacing(12),
+    },
+    headerMenuNavigateButton: {
+      '-webkit-app-region': 'no-drag',
+      padding: theme.spacing(0.5),
+    },
+    headerMenuButton: {
+      '-webkit-app-region': 'no-drag',
+      padding: theme.spacing(0.5),
+    },
+    headerMenuButtonSandwich: {
+      marginLeft: 9,
+      [theme.breakpoints.down('sm')]: {
+        marginLeft: 0,
+      },
+      padding: theme.spacing(0.5),
+    },
+    headerMenuButtonCollapse: {
+      marginRight: theme.spacing(2),
+    },
+    headerIcon: {
+      fontSize: 28,
+      color: 'rgba(255, 255, 255, 0.35)',
+      '&:hover, &:focus': {
+        color: 'white',
+      },
+    },
+    headerIconCollapse: {
       color: 'white',
     },
-  },
-  headerIconCollapse: {
-    color: 'white',
-  },
-  profileMenu: {
-    minWidth: 265,
-  },
-  profileMenuUser: {
-    display: 'flex',
-    flexDirection: 'column',
-    padding: theme.spacing(2),
-  },
-  logoIcon: {
-    marginRight: 8,
-  },
-}));
+    profileMenu: {
+      minWidth: 265,
+    },
+    profileMenuUser: {
+      display: 'flex',
+      flexDirection: 'column',
+      padding: theme.spacing(2),
+    },
+    logoIcon: {
+      marginRight: 8,
+    },
+  };
+});

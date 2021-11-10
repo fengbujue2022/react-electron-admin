@@ -3,21 +3,18 @@ import path from 'path';
 import { commonConfig } from '.';
 import nodeModule from 'module';
 
-console.log(
-  commonConfig.main.dir,
-  path.resolve(commonConfig.main.dir, 'tsconfig.json')
-);
+const { srcDir, outputDir } = commonConfig.main;
 
 export default {
   platform: 'node',
   entryPoints: [
-    path.resolve(commonConfig.main.srcDir, 'main.ts'),
-    path.resolve(commonConfig.main.srcDir, 'preload.ts'),
+    path.resolve(srcDir, 'main.ts'),
+    path.resolve(srcDir, 'preload.ts'),
   ],
   define: {
     'process.env.NODE_ENV': `'${process.env.NODE_ENV}'`,
   },
-  outdir: commonConfig.main.outputDir,
+  outdir: outputDir,
   bundle: true,
   external: ['electron', nodeModule.builtinModules],
   target: 'node16.5.0', // electron version target

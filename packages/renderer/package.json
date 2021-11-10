@@ -4,10 +4,13 @@
   "private": false,
   "scripts": {},
   "devDependencies": {
-    "@material-ui/core": "^4.8.0",
-    "@material-ui/data-grid": "^4.0.0-alpha.24",
-    "@material-ui/icons": "^4.5.1",
-    "@material-ui/lab": "^4.0.0-alpha.57",
+    "@emotion/styled": "^11.3.0",
+    "@emotion/react": "^11.5.0",
+    "@mui/material": "^5.0.6",
+    "@mui/x-data-grid": "^4.0.2",
+    "@mui/icons-material": "^5.0.5",
+    "@mui/styles": "^5.0.2",
+    "@mui/lab": "^5.0.0-alpha.53",
     "@types/classnames": "^2.2.11",
     "@types/lodash": "^4.14.170",
     "@types/react-dom": "^17.0.3",
@@ -23,6 +26,7 @@
     "react-toastify": "^7.0.4",
     "react-use": "^17.2.4",
     "tinycolor2": "^1.4.2",
+    "mui-datatables": "^4.0.0",
     "use-immer": "^0.5.2"
   },
   "dependencies": {

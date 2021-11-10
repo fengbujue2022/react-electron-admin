@@ -1,6 +1,6 @@
 import React from 'react';
 import ReporterDetail from '@/pages/reporters/detail';
-import { makeStyles, Theme } from '@material-ui/core/styles';
+import { makeStyles } from '@mui/styles';
 import { Route, Switch } from 'react-router-dom';
 import Header from '../header/header';
 import Sidebar from '../sidebar/sidebar';
@@ -10,7 +10,8 @@ import ProblemQuery from '@/pages/problem/query';
 import ProblemDetail from '@/pages/problem/detail';
 import { ToastContainer } from 'react-toastify';
 import routes from '@/constants/route';
-import { Box } from '@material-ui/core';
+import { Box } from '@mui/material';
+import { Theme } from '@/themes';
 
 function Layout() {
   const classes = useStyles();
@@ -49,7 +50,7 @@ function Layout() {
 
 export default Layout;
 
-const useStyles = makeStyles((theme: Theme) => ({
+const useStyles = makeStyles<Theme>((theme: Theme) => ({
   root: {
     display: 'flex',
     maxWidth: '100vw',

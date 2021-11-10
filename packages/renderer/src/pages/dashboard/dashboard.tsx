@@ -1,8 +1,10 @@
 import { ProblemRepository } from '@/repositories';
-import { Grid, makeStyles, Paper, Typography } from '@material-ui/core';
+import { Grid, Paper, Typography } from '@mui/material';
 import React from 'react';
 import dayjs from 'dayjs';
 import { useAsync } from 'react-use';
+import { makeStyles } from '@mui/styles';
+import { Theme } from '@/themes';
 
 export default function Dashboard() {
   const classes = useStyle();
@@ -34,7 +36,7 @@ export default function Dashboard() {
     </Grid>
   );
 }
-const useStyle = makeStyles((theme) => ({
+const useStyle = makeStyles((theme: Theme) => ({
   widgetContainer: {
     padding: theme.spacing(2),
     display: 'flex',

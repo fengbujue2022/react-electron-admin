@@ -1,10 +1,11 @@
 import React, { useState } from 'react';
-import { TextField, Grid, Button, makeStyles, Theme } from '@material-ui/core';
-import { Autocomplete } from '@material-ui/lab';
+import { TextField, Grid, Button, Theme } from '@mui/material';
+import { makeStyles } from '@mui/styles';
+import { Autocomplete } from '@mui/lab';
 import { ReporterRepository } from '@/repositories';
 import { generatePath, useHistory } from 'react-router-dom';
 import { DataModel, RowReturnType } from '@Ma';
-//import MUIDataTable from 'mui-datatables'
+import MUIDataTable from 'mui-datatables';
 import { toast } from 'react-toastify';
 import useAutoComplete from '@/hooks/useAutoComplete';
 import routes from '@/constants/route';
@@ -58,7 +59,7 @@ export default function List() {
 
   return (
     <>
-      <Grid container alignItems={'center'} justify={'space-between'}>
+      <Grid container alignItems={'center'} justifyContent={'space-between'}>
         <Grid item xs={4}>
           <Autocomplete
             freeSolo
@@ -89,7 +90,7 @@ export default function List() {
         </Button>
       </Grid>
       <div className={classes.tableContainer}>
-        {/* <MUIDataTable
+        <MUIDataTable
           title={'reporters table'}
           data={tableData}
           columns={[
@@ -121,27 +122,31 @@ export default function List() {
             count: count,
             rowsPerPage: rowsPerPage,
             onChangeRowsPerPage: (p) => {
-              setRowsPerPage(p)
+              setRowsPerPage(p);
             },
             onRowClick: (rowData, rowMeta) => {
-              history.push(generatePath(routes.ReporterEdit, { id: tableData[rowMeta.dataIndex].objectId }))
+              history.push(
+                generatePath(routes.ReporterEdit, {
+                  id: tableData[rowMeta.dataIndex].objectId,
+                })
+              );
             },
             onRowsDelete: (rowsDeleted, newTableData) => {
-              ReporterRepository.deleteByIds(rowsDeleted.data.map((x) => tableData[x.index].objectId)).then(
-                (x) => {
-                  toast.success('delete successful')
-                }
-              )
+              ReporterRepository.deleteByIds(
+                rowsDeleted.data.map((x) => tableData[x.index].objectId)
+              ).then((x) => {
+                toast.success('delete successful');
+              });
             },
           }}
-        /> */}
+        />
       </div>
     </>
   );
 }
 
-const useStyles = makeStyles((theme: Theme) => ({
+const useStyles = makeStyles({
   tableContainer: {
     position: 'relative',
   },
-}));
+});

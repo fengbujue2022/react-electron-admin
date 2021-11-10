@@ -6,18 +6,19 @@ import {
   ListItem,
   ListItemText,
   Divider,
-} from '@material-ui/core';
-import { makeStyles, Theme } from '@material-ui/core/styles';
+} from '@mui/material';
+import { makeStyles } from '@mui/styles';
 import { useHistory } from 'react-router';
 import { Link } from 'react-router-dom';
 import {
   Home as HomeIcon,
   Build as BuildIcon,
   ErrorOutline as ErrorOutlineIcon,
-} from '@material-ui/icons';
+} from '@mui/icons-material';
 import { useLayoutState } from '@/context/LayoutContext';
 import classnames from 'classnames';
 import routes from '@/constants/route';
+import { Theme } from '@/themes';
 
 const menuList = [
   { label: 'dashboard', link: routes.Dashboard, icon: <HomeIcon /> },

@@ -11,7 +11,6 @@ import { getDeps } from '../utils/deps';
 import { debounce } from '../utils/debounce';
 import ElectronProcess from './electron-process';
 import { promises as fs } from 'fs';
-import { delay } from '../utils/promise';
 
 async function startRenderer() {
   const { port, html, outputDir, srcDir } = commonConfig.renderer;
@@ -45,7 +44,6 @@ const electronProcess = new ElectronProcess();
 async function startMain() {
   const { srcDir } = commonConfig.main;
 
-  await delay(500);
   const builder: BuildIncremental = await build({
     ...esbuildMainConfig,
     incremental: true,
@@ -64,6 +62,7 @@ async function startMain() {
     watcher.on('all', () => {
       debounce(() => {
         builder.rebuild();
+        electronProcess.start();
       }, 200);
     });
   });
@@ -73,7 +72,7 @@ async function startMain() {
   });
 }
 
-function launchDevServer() {
+async function launchDevServer() {
   startRenderer();
   startMain();
 }

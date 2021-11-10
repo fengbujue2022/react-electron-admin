@@ -20,8 +20,8 @@ Builds the app for production to the build folder. It correctly bundles React in
 
 account : admin , password : admin
 
-## Updated （2021/11/08）
+## Updated （2021/11/09）
 
-1.拆分为 monorepo 方便管理
+1.拆分为 monorepo 方便管理, 使用 esbuild 作为构建工具
 
-2.加入 esbuild-devserver 作为开发服务器(不太喜欢 vite,umijs 之类的)
+2.加入 esbuild-devserver 作为开发服务器 ... 考虑直接用 vite?

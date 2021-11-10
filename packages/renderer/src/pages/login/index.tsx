@@ -1,14 +1,9 @@
 import React, { useState } from 'react';
-import {
-  Fade,
-  Typography,
-  TextField,
-  makeStyles,
-  Grid,
-  Button,
-} from '@material-ui/core';
+import { Fade, Typography, TextField, Grid, Button } from '@mui/material';
+import { makeStyles } from '@mui/styles';
 import { useAuthenticationAction } from '@/context/UserContext';
 import Header from '@/components/header/header';
+import { Theme } from '@/themes';
 
 export default function Login() {
   const classes = useStyle();
@@ -89,7 +84,7 @@ export default function Login() {
   );
 }
 
-const useStyle = makeStyles((theme) => ({
+const useStyle = makeStyles((theme: Theme) => ({
   container: {
     height: '100vh',
     width: '100vw',
